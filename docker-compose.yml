@@ -18,6 +18,9 @@ services:
       - ACCESS_LOG=-
       - ERROR_LOG=-
       - REVERSE_PROXY=true
+      - HDU_OA_CLIENT_ID=7Fa0bJwCH7mTXKsB
+      - HDU_OA_CLIENT_SECRET=j7OhxWunxuK8FlDlHbEiUvKXMJ6Ef07Z
+      - HDU_OA_REDIRECT_URI=https://api.0rays.club/ctfd/redirect
     volumes:
       - ./data/CTFd/logs:/var/log/CTFd
       - ./data/CTFd/uploads:/var/uploads
