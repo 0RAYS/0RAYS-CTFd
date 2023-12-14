@@ -6,7 +6,20 @@
 - conf/nginx/http.conf
 ```c
 // change it to your own domain
-server_name *.ctf.jbn.rz
+server_name *.training.0rays.club
+```
+
+- conf/frp/frps.ini
+```c
+// change it to your own domain
+subdomain_host = training.0rays.club
+```
+
+- docker-compose.yml
+```yaml
+- HDU_OA_CLIENT_ID=7Fa0bJwCH7mTXKsB
+- HDU_OA_CLIENT_SECRET=j7OhxWunxuK8FlDlHbEiUvKXMJ6Ef07Z
+- HDU_OA_REDIRECT_URI=https://api.0rays.club/ctfd/redirect 
 ```
 
 # Start
