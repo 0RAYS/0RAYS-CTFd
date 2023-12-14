@@ -11,16 +11,16 @@ services:
       - "8000:8000"
     environment:
       - UPLOAD_FOLDER=/var/uploads
-      - DATABASE_URL=mysql+pymysql://0rays-ctfd:0rays-ctfd-admin@db/training
+      - DATABASE_URL=mysql+pymysql://[mysql_user]:[mysql_user_password]@db/[database]
       - REDIS_URL=redis://cache:6379
       - WORKERS=1
       - LOG_FOLDER=/var/log/CTFd
       - ACCESS_LOG=-
       - ERROR_LOG=-
       - REVERSE_PROXY=true
-      - HDU_OA_CLIENT_ID=7Fa0bJwCH7mTXKsB
-      - HDU_OA_CLIENT_SECRET=j7OhxWunxuK8FlDlHbEiUvKXMJ6Ef07Z
-      - HDU_OA_REDIRECT_URI=https://api.0rays.club/ctfd/redirect
+      - HDU_OA_CLIENT_ID=[secret]
+      - HDU_OA_CLIENT_SECRET=[secret]
+      - HDU_OA_REDIRECT_URI=[url]
     volumes:
       - ./data/CTFd/logs:/var/log/CTFd
       - ./data/CTFd/uploads:/var/uploads
@@ -51,10 +51,10 @@ services:
     image: mariadb:10.4.12
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=0rays-ctfd-root
-      - MYSQL_USER=0rays-ctfd
-      - MYSQL_PASSWORD=0rays-ctfd-admin
-      - MYSQL_DATABASE=training
+      - MYSQL_ROOT_PASSWORD=[mysql_root_password]
+      - MYSQL_USER=[mysql_user]
+      - MYSQL_PASSWORD=[mysql_user_password]
+      - MYSQL_DATABASE=[database]
     volumes:
       - ./data/mysql:/var/lib/mysql
     networks:
