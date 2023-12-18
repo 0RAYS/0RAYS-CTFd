@@ -40,6 +40,8 @@ services:
       - HDU_OA_CLIENT_ID=[secret]
       - HDU_OA_CLIENT_SECRET=[secret]
       - HDU_OA_REDIRECT_URI=[url]
+      - SUBMISSION_WEBHOOK_URL=[url]
+      - WEBHOOK_SESSION_TOKEN=[token]
     volumes:
       - ./data/CTFd/logs:/var/log/CTFd
       - ./data/CTFd/uploads:/var/uploads
