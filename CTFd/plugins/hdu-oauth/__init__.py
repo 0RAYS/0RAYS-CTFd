@@ -18,7 +18,6 @@ from CTFd.utils.decorators.visibility import check_registration_visibility
 from CTFd.utils.helpers import get_errors
 from CTFd.utils.logging import log
 from CTFd.utils.validators import ValidationError
-from .config import config as init_config
 
 
 def padding(msg: bytes):
@@ -212,7 +211,6 @@ def register():
 
 
 def load(app: Flask):
-    init_config(app)
     app.view_functions["auth.register"] = register
 
     @app.route("/ctfd/redirect", methods=["GET"])
