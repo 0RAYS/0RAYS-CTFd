@@ -39,7 +39,8 @@ RUN apt-get update \
 
 COPY --chown=1001:1001 . /opt/CTFd
 
-RUN useradd \
+RUN sed -i "s/\r//g" /opt/CTFd/docker-entrypoint.sh && \
+    useradd \
     --no-log-init \
     --shell /bin/bash \
     -u 1001 \
