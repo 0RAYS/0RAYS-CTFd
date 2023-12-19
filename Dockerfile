@@ -17,7 +17,8 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY . /opt/CTFd
 
-RUN pip install --no-cache-dir -r requirements.txt \
+RUN sed -i "s/\r//g" /opt/CTFd/docker-entrypoint.sh && \
+    pip install --no-cache-dir -r requirements.txt \
     && for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \
             pip install --no-cache-dir -r "$d/requirements.txt";\
