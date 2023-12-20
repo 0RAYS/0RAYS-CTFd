@@ -158,14 +158,6 @@ def attempt_hooked():
 
         status, message = chal_class.attempt(challenge, request)
         if status:  # The challenge plugin says the input is right
-            solve_count = Solves.query.filter_by(challenge_id=challenge_id).count()
-            data = {
-                "challenge": challenge.name,
-                "username": user.name,
-                "time": round(time()),
-                "count": solve_count
-            }
-            param = b64encode(dumps(data).encode()).decode()
             header = {
                 "HookToken": current_app.config["WEBHOOK_SESSION_TOKEN"]
             }
@@ -176,6 +168,14 @@ def attempt_hooked():
                 clear_standings()
                 clear_challenges()
 
+            solve_count = Solves.query.filter_by(challenge_id=challenge_id).count()
+            data = {
+                "challenge": challenge.name,
+                "username": user.name,
+                "time": round(time()),
+                "count": solve_count
+            }
+            param = b64encode(dumps(data).encode()).decode()
             log(
                 "submissions",
                 "[{date}] {name} submitted {submission} on {challenge_id} with kpm {kpm} [CORRECT]",
