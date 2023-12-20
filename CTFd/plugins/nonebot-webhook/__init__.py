@@ -158,10 +158,12 @@ def attempt_hooked():
 
         status, message = chal_class.attempt(challenge, request)
         if status:  # The challenge plugin says the input is right
+            solve_count = Solves.query.filter_by(challenge_id=challenge_id).count()
             data = {
                 "challenge": challenge.name,
                 "username": user.name,
-                "time": round(time())
+                "time": round(time()),
+                "count": solve_count
             }
             param = b64encode(dumps(data).encode()).decode()
             header = {
