@@ -4,15 +4,26 @@
 # Before start
 
 - conf/nginx/http.conf
-```c
-// change it to your own domain
+```ini
+# change it to your own domain
 server_name *.your_domain
 ```
 
 - conf/frp/frps.ini
-```c
-// change it to your own domain
+```ini
+# change it to a random strings
+token = token
+# change it to your own domain
 subdomain_host = *.your_domain
+```
+
+- conf/frp/frpc.ini
+```ini
+# change it to a random strings
+token = token
+# change these two item
+admin_user = username
+admin_pwd = password
 ```
 
 - docker-compose.yml []中为需要修改的内容
