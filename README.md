@@ -13,7 +13,7 @@ server_name *.your_domain
 # change it to a random strings
 token = token
 # change it to your own domain
-subdomain_host = *.your_domain
+subdomain_host = your_domain
 ```
 
 - conf/frp/frpc.ini
