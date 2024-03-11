@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster as build
+FROM python:3.11-slim-bookworm as build
 
 WORKDIR /opt/CTFd
 
@@ -17,8 +17,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY . /opt/CTFd
 
-RUN sed -i "s/\r//g" /opt/CTFd/docker-entrypoint.sh && \
-    pip install --no-cache-dir -r requirements.txt \
+RUN pip install --no-cache-dir -r requirements.txt \
     && for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \
             pip install --no-cache-dir -r "$d/requirements.txt";\
@@ -26,21 +25,20 @@ RUN sed -i "s/\r//g" /opt/CTFd/docker-entrypoint.sh && \
     done;
 
 
-FROM python:3.9-slim-buster as release
+FROM python:3.11-slim-bookworm as release
 WORKDIR /opt/CTFd
 
 # hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        libffi6 \
-        libssl1.1 \
+        libffi8 \
+        libssl3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --chown=1001:1001 . /opt/CTFd
 
-RUN sed -i "s/\r//g" /opt/CTFd/docker-entrypoint.sh && \
-    useradd \
+RUN useradd \
     --no-log-init \
     --shell /bin/bash \
     -u 1001 \

@@ -7,7 +7,7 @@ from flask import current_app
 from flask import redirect, render_template, request, url_for
 from requests import get
 
-from CTFd.models import UserFieldEntries, UserFields, Users, db, Fields
+from CTFd.models import Brackets, UserFieldEntries, UserFields, Users, db, Fields
 from CTFd.schemas.fields import FieldSchema
 from CTFd.utils import email, get_config, get_app_config, config
 from CTFd.utils import user as current_user
@@ -74,6 +74,7 @@ def register():
         affiliation = request.form.get("affiliation")
         country = request.form.get("country")
         registration_code = str(request.form.get("registration_code", ""))
+        bracket_id = request.form.get("bracket_id", None)
 
         name_len = len(name) == 0
         names = (
@@ -132,6 +133,16 @@ def register():
         else:
             valid_affiliation = True
 
+        if bracket_id:
+            valid_bracket = bool(
+                Brackets.query.filter_by(id=bracket_id, type="users").first()
+            )
+        else:
+            if Brackets.query.filter_by(type="users").count():
+                valid_bracket = False
+            else:
+                valid_bracket = True
+
         client_id = get_app_config("HDU_OA_CLIENT_ID")
         redirect_uri = get_app_config("HDU_OA_REDIRECT_URI")
 
@@ -162,6 +173,8 @@ def register():
             errors.append("Invalid country")
         if valid_affiliation is False:
             errors.append("Please provide a shorter affiliation")
+        if valid_bracket is False:
+            errors.append("Please provide a valid bracket")
 
         if len(errors) > 0:
             return render_template(
@@ -183,7 +196,7 @@ def register():
                 if get_app_config("AES_KEYS") is None:
                     current_app.config["AES_KEYS"] = {}
                 current_app.config["AES_KEYS"][state] = key
-                user = Users(name=name, email=email_address, password=password)
+                user = Users(name=name, email=email_address, password=password, bracket_id=bracket_id)
                 user.banned = True
 
                 if website:
@@ -265,6 +278,7 @@ def load(app: Flask):
                 db.session.close()
         name_id = Fields.query.filter_by(name="姓名").first().id
         id_id = Fields.query.filter_by(name="学号").first().id
+        user = Users.query.filter(Users.name == username, Users.email == email_address).first()
         db.session.delete(UserFieldEntries.query.filter_by(field_id=name_id, user_id=user.id).first())
         db.session.delete(UserFieldEntries.query.filter_by(field_id=id_id, user_id=user.id).first())
         db.session.add(UserFieldEntries(field_id=name_id, value=name, user_id=user.id))

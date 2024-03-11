@@ -1,9 +1,8 @@
 # 0RAYS-CTFd
-[3.6.1 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.6.1) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale/commit/08a4a92b80bcffa0efa5b49bdb8f01f4d9b5bc0a) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
+[3.7.0 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.7.0) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
 
 # Before start
-
-- conf/nginx/http.conf
+- conf/nginx/nginx.conf
 ```ini
 # change it to your own domain
 server_name *.your_domain
@@ -63,7 +62,6 @@ services:
     networks:
       default:
       internal:
-        ipv4_address: 172.26.0.11
 
   nginx:
     image: nginx:stable
@@ -77,7 +75,6 @@ services:
     networks:
       default:
       internal:
-        ipv4_address: 172.26.0.12
 
   db:
     image: mariadb:10.4.12
@@ -91,7 +88,6 @@ services:
       - ./data/mysql:/var/lib/mysql
     networks:
       internal:
-        ipv4_address: 172.26.0.13
     # This command is required to set important mariadb defaults
     command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
 
@@ -102,7 +98,6 @@ services:
     - ./data/redis:/data
     networks:
       internal:
-        ipv4_address: 172.26.0.14
 
   frps:
     image: glzjin/frp
@@ -118,9 +113,7 @@ services:
     networks:
       default:
       internal:
-        ipv4_address: 172.26.0.15
       frp_connect:
-        ipv4_address: 172.27.0.11
 
   frpc:
     image: glzjin/frp
@@ -135,11 +128,8 @@ services:
       - frps
     networks:
       internal:
-        ipv4_address: 172.26.0.16
       frp_containers:
-        ipv4_address: 172.28.0.11
       frp_connect:
-        ipv4_address: 172.27.0.12
 
 networks:
   default:
@@ -161,15 +151,12 @@ networks:
     ipam:
       config:
         - subnet: 172.28.0.0/16
-
 ```
 
 # Start
-```bash
+```shell
 sed -i "s/\r//g" docker-entrypoint.sh
 docker swarm init
 docker node update --label-add name=linux-1 $(docker node ls -q)
 docker compose up -d
 ```
-
-
