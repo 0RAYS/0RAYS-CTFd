@@ -154,9 +154,14 @@ networks:
 ```
 
 # Start
+- start
 ```shell
 sed -i "s/\r//g" docker-entrypoint.sh
 docker swarm init
 docker node update --label-add name=linux-1 $(docker node ls -q)
 docker compose up -d
 ```
+
+- ctfd-whale config
+![config-1](./images/config1.png)
+![config-2](./images/config2.png)
