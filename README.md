@@ -1,5 +1,5 @@
 # 0RAYS-CTFd
-[3.7.0 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.7.0) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
+[3.7.2 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.7.2) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
 
 # Before start
 - conf/nginx/nginx.conf
@@ -135,22 +135,13 @@ networks:
   default:
   internal:
     internal: true
-    ipam:
-      config:
-        - subnet: 172.26.0.0/24
   frp_connect:
     internal: true
     attachable: true
     driver: overlay
-    ipam:
-      config:
-        - subnet: 172.27.0.0/24
   frp_containers:
     attachable: true
     driver: overlay
-    ipam:
-      config:
-        - subnet: 172.28.0.0/16
 ```
 
 # Start
