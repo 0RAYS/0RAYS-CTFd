@@ -1,5 +1,5 @@
 # 0RAYS-CTFd
-[3.7.2 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.7.2) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
+[3.7.3 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.7.3) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
 
 # Before start
 - conf/nginx/nginx.conf
