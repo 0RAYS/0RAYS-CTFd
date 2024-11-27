@@ -1,5 +1,5 @@
 # 0RAYS-CTFd
-[3.7.3 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.7.3) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
+[3.7.4 CTFd](https://github.com/CTFd/CTFd/releases/tag/3.7.4) + [CTFd-whale](https://github.com/JBNRZ/ctfd-whale) + [hdu-oauth](https://github.com/JBNRZ/hdu-oauth) + submission-notice
 
 # Before start
 - conf/nginx/nginx.conf
@@ -77,7 +77,7 @@ services:
       internal:
 
   db:
-    image: mariadb:10.4.12
+    image: mariadb:10.11
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=[mysql_root_password]

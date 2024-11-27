@@ -250,7 +250,6 @@ def load(app: Flask):
             db.session.close()
             return render_template("register.html", errors=[rep["msg"]])
         Users.query.filter(Users.name == username, Users.email == email_address).update({"banned": False})
-        user = Users.query.filter(Users.name == username, Users.email == email_address).first()
         db.session.commit()
         db.session.flush()
         name = rep["data"]["staff_name"]
